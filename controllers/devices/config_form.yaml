@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Device
+
+# Model Form Field configuration
+form: $/octobro/devices/models/device/fields.yaml
+
+# Model Class name
+modelClass: Octobro\Devices\Models\Device
+
+# Default redirect location
+defaultRedirect: octobro/devices/devices
+
+# Create page
+create:
+    title: Create Device
+    redirect: octobro/devices/devices/update/:id
+    redirectClose: octobro/devices/devices
+
+# Update page
+update:
+    title: Edit Device
+    redirect: octobro/devices/devices
+    redirectClose: octobro/devices/devices
+
+# Preview page
+preview:
+    title: Preview Device

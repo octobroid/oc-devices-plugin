@@ -1,0 +1,19 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    id:
+        label: ID
+    user:
+        label: User
+        relation: user
+        select: username
+    uuid:
+        label: UUID
+    push_token:
+        label: Push Token
+    platform:
+        label: Platform
+    version:
+        label: Version

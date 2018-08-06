@@ -1,0 +1,6 @@
+1.0.1:
+    - First version of Devices
+    - create_devices_table.php
+1.0.2:
+    - Add more columns
+    - add_additional_columns_on_devices_table.php
