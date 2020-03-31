@@ -12,7 +12,7 @@ class Devices extends ApiController
 {
     public function index()
     {
-        return $this->respondwithCollection($this->getUser()->devices, new DeviceTransformer);
+        return $this->respondWithCollection($this->getUser()->devices, new DeviceTransformer);
     }
 
     public function store()
@@ -23,23 +23,25 @@ class Devices extends ApiController
         ]);
 
         $device->fill([
-            'user_id'          => $this->getUser()->id,
-            'push_token'       => $this->input->get('push_token'),
-            'version'          => $this->input->get('version'),
-            'name'             => $this->input->get('name'),
-            'platform_version' => $this->input->get('platform_version'),
-            'last_seen'        => Carbon::now(),
+            'user_id'           => $this->getUser()->id,
+            'push_token'        => $this->input->get('push_token'),
+            'version'           => $this->input->get('version'),
+            'name'              => $this->input->get('name'),
+            'platform_version'  => $this->input->get('platform_version'),
+            'last_seen'         => Carbon::now(),
+            'latitude'          => $this->input->get('latitude'),
+            'longitude'         => $this->input->get('longitude')
         ]);
 
         $device->save();
 
-        return $this->respondwithCollection($this->getUser()->devices, new DeviceTransformer);
+        return $this->respondWithCollection($this->getUser()->devices, new DeviceTransformer);
     }
 
     public function destroy()
     {
         $device = Device::whereUuid($this->input->get('uuid'))->destroy();
 
-        return $this->respondwithCollection($this->getUser()->devices, new DeviceTransformer);
+        return $this->respondWithCollection($this->getUser()->devices, new DeviceTransformer);
     }
 }

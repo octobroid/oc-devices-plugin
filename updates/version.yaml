@@ -4,3 +4,6 @@
 1.0.2:
     - Add more columns
     - add_additional_columns_on_devices_table.php
+1.0.3:
+    - Add latitude and longitude column
+    - add_lat_lng_in_devices_table.php
