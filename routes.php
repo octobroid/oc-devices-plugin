@@ -9,7 +9,7 @@
 
             Route::group(['middleware' => 'oauth'], function() {
                 Route::get('devices','Devices@index');
-                Route::post('devices','Devices@store');
+                Route::post('devices','Devices@storeV2');
                 Route::delete('devices/{id}','Devices@destroy');
             });
     });
