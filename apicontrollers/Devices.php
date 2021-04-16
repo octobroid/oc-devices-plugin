@@ -59,11 +59,12 @@ class Devices extends ApiController
             'longitude'        => $this->input->get('longitude')
         ];
 
-        Queue::push('Octobro\Devices\Jobs\DeviceJob', $data, 'low');
+        Queue::push('Octobro\Devices\Jobs\DeviceJob', $data);
 
-        $devices = $user->devices()->remember(2)->get();
-
-        return $this->respondWithCollection($devices, new DeviceTransformer);
+        return response()->json([
+            'status'  => 'Success',
+            'message' => 'Device Successfully Saved'
+        ]);
     }
 
     public function destroy()
