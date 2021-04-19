@@ -1,6 +1,6 @@
 <?php namespace Octobro\Devices\APIControllers;
 
-use Queue;
+use Event, Queue;
 use Octobro\Devices\Models\Device;
 use Octobro\API\Classes\ApiController;
 use Octobro\Devices\Transformers\DeviceTransformer;
@@ -60,6 +60,7 @@ class Devices extends ApiController
         ];
 
         Queue::push('Octobro\Devices\Jobs\DeviceJob', $data);
+        Event::fire('Octobro.Devices.StoreV2', [$user, $data]);
 
         return response()->json([
             'status'  => 'Success',
