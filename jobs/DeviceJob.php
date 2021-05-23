@@ -14,6 +14,9 @@ class DeviceJob
         try {
             DB::beginTransaction();
             
+            // Clean up existing tokens
+            Device::wherePushToken(data_get($data, 'push_token'))->delete();
+
             $device = Device::firstOrNew([
                 'uuid'     => data_get($data, 'uuid'),
                 'platform' => data_get($data, 'platform'),
