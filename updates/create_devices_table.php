@@ -11,9 +11,9 @@ class CreateDevicesTable extends Migration
         Schema::create('octobro_devices_devices', function(Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->string('uuid')->nullable();
-            $table->string('push_token')->nullable();
+            $table->integer('user_id')->unsigned()->index();
+            $table->string('uuid')->nullable()->index();
+            $table->string('push_token')->nullable()->index();
             $table->string('platform')->nullable();
             $table->string('version')->nullable();
             $table->timestamp('last_seen')->nullable();
