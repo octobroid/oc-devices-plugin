@@ -1,6 +1,6 @@
 <?php namespace Octobro\Devices\Jobs;
 
-use DB;
+use Cache, DB;
 use Octobro\Devices\Models\Device;
 
 /**
@@ -35,6 +35,9 @@ class DeviceJob
     
             $device->save();
 
+            // Alternative way to get push token for user relation
+            $this->addDeviceToCache($data, $device);
+
             DB::commit();
         } catch (ApplicationException $th) {
             DB::rollback();
@@ -42,5 +45,15 @@ class DeviceJob
         }
 
         $job->delete();
+    }
+
+    protected function addDeviceToCache($data, $device)
+    {
+        $cacheName  = sprintf('%s_token_devices', data_get($data, 'user_id'));
+        $tokens     = Cache::get($cacheName, []);
+
+        array_push($tokens, $device->push_token);
+
+        Cache::put($cacheName, $tokens, 255);
     }
 }
