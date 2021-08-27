@@ -59,8 +59,11 @@ class Devices extends ApiController
             'longitude'        => $this->input->get('longitude')
         ];
 
-        Queue::push('Octobro\Devices\Jobs\DeviceJob', $data);
-        Event::fire('Octobro.Devices.StoreV2', [$user, $data]);
+        // To make it works, please add DeviceTrait into your User Model
+        if(!in_array($data['push_token'], (array) $user->device_tokens)){
+            Queue::push('Octobro\Devices\Jobs\DeviceJob', $data);
+            Event::fire('Octobro.Devices.StoreV2', [$user, $data]);
+        }
 
         return response()->json([
             'status'  => 'Success',
