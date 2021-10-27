@@ -1,6 +1,6 @@
 <?php namespace Octobro\Devices\Jobs;
 
-use Cache, DB;
+use Cache, DB, Event;
 use Octobro\Devices\Models\Device;
 
 /**
@@ -37,6 +37,10 @@ class DeviceJob
 
             // Alternative way to get push token for user relation
             $this->addDeviceToCache($data, $device);
+            
+            if($device->wasRecentlyCreated){
+                Event::fire('Octobro.Devices.Job', [$data, $device->user]);
+            }
 
             DB::commit();
         } catch (ApplicationException $th) {
