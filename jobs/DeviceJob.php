@@ -18,8 +18,9 @@ class DeviceJob
             Device::wherePushToken(data_get($data, 'push_token'))->delete();
 
             $device = Device::firstOrNew([
-                'uuid'     => data_get($data, 'uuid'),
-                'platform' => data_get($data, 'platform'),
+                'uuid'       => data_get($data, 'uuid'),
+                'platform'   => data_get($data, 'platform'),
+                'push_token' => data_get($data, 'push_token')
             ]);
     
             $device->fill([
