@@ -39,9 +39,7 @@ class DeviceJob
             // Alternative way to get push token for user relation
             $this->addDeviceToCache($data, $device);
             
-            if($device->wasRecentlyCreated){
-                Event::fire('Octobro.Devices.Job', [$data, $device->user]);
-            }
+            Event::fire('Octobro.Devices.Job', [$device->user, $data]);
 
             DB::commit();
         } catch (ApplicationException $th) {
