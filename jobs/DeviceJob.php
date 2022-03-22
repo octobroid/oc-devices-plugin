@@ -20,7 +20,6 @@ class DeviceJob
             $device = Device::firstOrNew([
                 'uuid'       => data_get($data, 'uuid'),
                 'platform'   => data_get($data, 'platform'),
-                'push_token' => data_get($data, 'push_token')
             ]);
     
             $device->fill([
