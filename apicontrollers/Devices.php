@@ -72,10 +72,10 @@ class Devices extends ApiController
         ]);
     }
 
-    public function destroy()
+    public function destroy($uuid)
     {
         $user    = $this->getUser();
-        $device  = Device::whereUuid($this->input->get('uuid'))->destroy();
+        $device  = Device::whereUuid($uuid)->delete();
         $devices = $user->devices()->remember(2)->get();
 
         return $this->respondWithCollection($devices, new DeviceTransformer);
