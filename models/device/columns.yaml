@@ -9,11 +9,30 @@ columns:
         label: User
         relation: user
         select: username
-    uuid:
-        label: UUID
-    push_token:
-        label: Push Token
+
+    # uuid:
+    #     label: UUID
+
+    # push_token:
+    #     label: Push Token
+
+    name:
+        label: Name
+
     platform:
         label: Platform
+
+    platform_version:
+        label: Platform Version
+
     version:
         label: Version
+
+    latitude:
+        label: Latitude
+
+    longitude:
+        label: Longitude
+
+    last_seen:
+        label: Last Seen

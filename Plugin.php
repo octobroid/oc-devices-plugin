@@ -9,7 +9,7 @@ use System\Classes\PluginBase;
  */
 class Plugin extends PluginBase
 {
-    public $require = ['Octobro.API', 'Octobro.OAuth2'];
+    public $require = ['Octobro.API'];
 
     /**
      * Returns information about this plugin.
@@ -36,5 +36,38 @@ class Plugin extends PluginBase
         User::extend(function ($model) {
             $model->hasMany['devices'] = 'Octobro\Devices\Models\Device';
         });
+    }
+
+    /**
+     * Registers any backend permissions used by this plugin.
+     *
+     * @return array
+     */
+    public function registerPermissions()
+    {
+        return [
+            'octobro.devices.manage_device' => [
+                'tab'   => 'device',
+                'label' => 'Manage device contents from users'
+            ]
+        ];
+    }
+
+    /**
+     * Registers backend navigation items for this plugin.
+     *
+     * @return array
+     */
+    public function registerNavigation()
+    {
+        return [
+            'device' => [
+                'label'       => 'Devices',
+                'url'         => Backend::url('octobro/devices/devices'),
+                'icon'        => 'icon-mobile',
+                'permissions' => ['octobro.devices.manage_device'],
+                'order'       => 440,
+            ],
+        ];
     }
 }
