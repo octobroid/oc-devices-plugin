@@ -1,6 +1,7 @@
 <?php namespace Octobro\Devices;
 
 use Backend;
+use Event;
 use RainLab\User\Models\User;
 use System\Classes\PluginBase;
 
@@ -33,41 +34,22 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
+
+        // extend the user navigation
+        Event::listen('backend.menu.extendItems', function($manager) {
+            $manager->addSideMenuItems('RainLab.User', 'user', [
+                 'users' => [
+                    'label'       => 'rainlab.user::lang.users.menu_label',
+                    'icon'        => 'icon-user',
+                    'code'        => 'users',
+                    'owner'       => 'RainLab.User',
+                    'url'         => Backend::url('rainlab/user/users'),
+                ],
+             ]);
+         });
+
         User::extend(function ($model) {
             $model->hasMany['devices'] = 'Octobro\Devices\Models\Device';
         });
-    }
-
-    /**
-     * Registers any backend permissions used by this plugin.
-     *
-     * @return array
-     */
-    public function registerPermissions()
-    {
-        return [
-            'octobro.devices.manage_device' => [
-                'tab'   => 'device',
-                'label' => 'Manage device contents from users'
-            ]
-        ];
-    }
-
-    /**
-     * Registers backend navigation items for this plugin.
-     *
-     * @return array
-     */
-    public function registerNavigation()
-    {
-        return [
-            'device' => [
-                'label'       => 'Devices',
-                'url'         => Backend::url('octobro/devices/devices'),
-                'icon'        => 'icon-mobile',
-                'permissions' => ['octobro.devices.manage_device'],
-                'order'       => 440,
-            ],
-        ];
     }
 }
